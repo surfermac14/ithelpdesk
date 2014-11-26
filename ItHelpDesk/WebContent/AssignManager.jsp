@@ -1,7 +1,7 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="NewFile.css">
-<title>Add Employee</title>
+<title>Assign Manager Department</title>
 </head>
 <body>
 	<div class="mainbody">
@@ -14,23 +14,20 @@
 			<div id="rightimg"></div>
 
 		</div>
-
 		<div id="emp">
 			<table>
 				<tr>
-					<td>Emp name :</td>
-					<td><input type="text"></td>
+					<td>Empname</td>
+					<td><select>
+							<option value="Select">--Select--</option>
+							<option value="Abhinav">Abhinav</option>
+							<option value="jawahar">Jawahar</option>
+							<option value="Nayateja">Nayateja</option>
+							<option value="Nagaraju">Nagaraju</option>
+					</select></td>
 				</tr>
 				<tr>
-					<td>Emp email :</td>
-					<td><input type="text"></td>
-				</tr>
-				<tr>
-					<td>Emp phno :</td>
-					<td><input type="text"></td>
-				</tr>
-				<tr>
-					<td>Department :</td>
+					<td>Department</td>
 					<td><select name="select">
 							<option value="Select">--Select--</option>
 							<option value="WebDesign">WebDesign</option>
@@ -40,14 +37,7 @@
 							<option value="Developement">Developement</option>
 					</select></td>
 				</tr>
-				<tr>
-				</tr>
-				<tr>
-				</tr>
-				<tr>
-					<td colspan="2" align="center"><input type="button"
-						value="Submit"></td>
-				</tr>
+				
 			</table>
 		</div>
 	</div>

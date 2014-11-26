@@ -1,6 +1,7 @@
 package ithelp.controller;
 
-import ithelp.command.InitCommand;
+import ithelp.command.EmployeeCommand;
+import ithelp.command.InsEmpCommand;
 import ithelp.command.LoginCommand;
 
 import java.io.IOException;
@@ -23,13 +24,13 @@ public class Controller extends HttpServlet{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@SuppressWarnings("rawtypes")
-	private Map commands = new HashMap();
+	private Map<String,Object> commands = new HashMap<String, Object>();
 	
 	public void init(ServletConfig config) throws ServletException{
         super.init();	            	        
         
         this.commands.put("login", new LoginCommand());
+        this.commands.put("insertemp", new InsEmpCommand());
     }
 	
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -55,7 +56,7 @@ public class Controller extends HttpServlet{
 
         // Calling the command class execute method
         command.execute(request, response);
-        System.out.println("executed");
+       
 		
 	} 
 	public void doGet(HttpServletRequest req,HttpServletResponse resp)throws ServletException,IOException

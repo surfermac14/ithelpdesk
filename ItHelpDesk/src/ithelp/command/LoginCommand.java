@@ -36,7 +36,6 @@ public class LoginCommand implements Command {
 		mapToUserBean (request, userBean);
 
 		if ("success".equalsIgnoreCase(this.checkUser(userBean))){        
-			System.out.println("entered");
 
 			EmployeeDao  e = new EmployeeDao();
 			userBean = e.selectUser(userBean);
