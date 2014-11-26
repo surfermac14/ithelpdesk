@@ -41,7 +41,7 @@ public class LoginCommand implements Command {
         	HttpSession session = request.getSession();
         	session.setAttribute("userBean", userBean);
       	
-        	
+        	if()
         	ServletContext context = request.getSession().getServletContext();
             context.getRequestDispatcher("/WelcomeAdmin.jsp").forward(request, response);
         	

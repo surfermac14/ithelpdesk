@@ -127,5 +127,134 @@ public class EmployeeDao {
 		return users;
 		
 	}
+	
+public EmployeeBean selectUser(EmployeeBean e){
+		
+		EmployeeBean user = new EmployeeBean();
+		
+		//Create a Database Connection
+		Connection con = DBConnectionManager.getSimpleConnection();		
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		PreparedStatement pt = null;
+	
+		
+		try{
+			con.setAutoCommit(false);
+			st = con.prepareStatement("select * from user where empemail=?");
+			st.setString(1,e.getEmail());
+			pt	=con.prepareStatement("select password from passwords where empid=(select empid from employee where empemail=?)");
+			pt.setString(1,e.getEmail());
+			rs = st.executeQuery() ;
+					
+			while (rs.next()){
+				
+				user.setName(rs.getString("empname"));
+				user.setPhone(rs.getString("empphone"));
+				user.setMgr(Boolean.parseBoolean(rs.getString("mgr")));
+				
+				user.setEmail(rs.getString("empemail"));
+				user.setDept(rs.getString("dept"));		
+								
+			}
+			rs=pt.executeQuery();
+			while(rs.next()){
+				user.setPassword(rs.getString("password"));
+			}
+									
+		}catch (SQLException ex){
+			
+			DBConnectionManager.rollbackJDBCConnection(con);
+			//log.error(ex);
+		}
+		finally
+		{
+			DBConnectionManager.commitJDBCConnection(con);
+			DBConnectionManager.closeStatement(st);
+			DBConnectionManager.closeJDBCConnection(con);
+		}
+		
+				
+		return user;
+		
+	}
+	
+	public int insertUser(EmployeeBean e){
+		
+		Connection con = DBConnectionManager.getSimpleConnection();		
+		PreparedStatement st = null;
+		
+		try {
+			con.setAutoCommit(false);
+			
+			st = con.prepareStatement("insert into employee(empname,empemail,empphone,dept) values(?,?,?,?)");
+			st.setString(1, e.getName());
+			st.setString(2,e.getEmail());
+			st.setString(3,e.getPhone());
+			st.setString(4,e.getDept());
+			int n=st.executeUpdate();
+			
+			return n;
+			
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			DBConnectionManager.rollbackJDBCConnection(con);
+		}
+		finally{
+			DBConnectionManager.commitJDBCConnection(con);
+			DBConnectionManager.closeStatement(st);
+			DBConnectionManager.closeJDBCConnection(con);
+		}
+		
+		
+		
+		return 0;
+	}
+	
+	public int updateUser(EmployeeBean e){
+		Connection con = DBConnectionManager.getSimpleConnection();		
+		PreparedStatement st = null;
+		int n;
+		try {
+			st=con.prepareStatement("update employee set empname =?,empphone=?,dept=?");
+			st.setString(1,e.getName());
+			st.setString(2,e.getPhone());
+			st.setString(3, e.getDept());
+			
+			 n=st.executeUpdate();
+			
+		} catch (SQLException e1) {
+			n=0;
+			DBConnectionManager.rollbackJDBCConnection(con);
+		}
+		finally{
+			DBConnectionManager.commitJDBCConnection(con);
+			DBConnectionManager.closeStatement(st);
+			DBConnectionManager.closeJDBCConnection(con);
+		}
+		return n;
+	}
+	
+	public int changePass(EmployeeBean e){
+		Connection con = DBConnectionManager.getSimpleConnection();		
+		PreparedStatement st = null;
+		int n;
+		try {
+			st=con.prepareStatement("update passwords set password = ? where empid=(select empid from employee where empemail=?)");
+			st.setString(1,e.getName());
+			st.setString(2,e.getEmail());
+			 n=st.executeUpdate();
+			
+		} catch (SQLException e1) {
+			n=0;
+			DBConnectionManager.rollbackJDBCConnection(con);
+		}
+		finally{
+			DBConnectionManager.commitJDBCConnection(con);
+			DBConnectionManager.closeStatement(st);
+			DBConnectionManager.closeJDBCConnection(con);
+		}
+		return n;
+	}
 
 }
