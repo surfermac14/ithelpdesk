@@ -28,7 +28,7 @@ public class Controller extends HttpServlet{
 	
 	public void init(ServletConfig config) throws ServletException{
         super.init();	            	        
-        this.commands.put("init",  new InitCommand());
+        
         this.commands.put("login", new LoginCommand());
     }
 	
@@ -52,8 +52,10 @@ public class Controller extends HttpServlet{
                 "No command for form action: " + formAction);
         }
         
+
         // Calling the command class execute method
         command.execute(request, response);
+        System.out.println("executed");
 		
 	} 
 	public void doGet(HttpServletRequest req,HttpServletResponse resp)throws ServletException,IOException

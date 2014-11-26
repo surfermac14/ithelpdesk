@@ -26,9 +26,9 @@ public class EmployeeDao {
 		Connection con = DBConnectionManager.getSimpleConnection();
 		PreparedStatement st;
 		try {
-			st = con.prepareStatement("select * from passwords where password=? and empid=(select empid from employee where empemail=?)");
-			st.setString(1,e.getPassword());
-			st.setString(2,e.getEmail());
+			st = con.prepareStatement("select * from employee where empemail=? and password=?");
+			st.setString(2,e.getPassword());
+			st.setString(1,e.getEmail());
 			ResultSet rs=st.executeQuery();
 			
 			if(rs.next()){
@@ -51,18 +51,17 @@ public class EmployeeDao {
 	{
 		String result = null;
 		Connection con = DBConnectionManager.getSimpleConnection();		
-		PreparedStatement st = null;
 		PreparedStatement st2 = null;
 					
 		try{
 			con.setAutoCommit(false);
-			st = con.prepareStatement("delete from passwords where id=(select id from employee where email=?");
+			
 			st2 = con.prepareStatement("delete from employee where email =?");
 			
 	
-			int row = st.executeUpdate() ;
+			
 			int row2 = st2.executeUpdate();
-			if(row != 0 && row2!=0){
+			if( row2!=0){
 				//log.info("Deleted user  " + email );
 				result = SUCCESS;
 			}else{
@@ -78,7 +77,7 @@ public class EmployeeDao {
 		finally
 		{
 			DBConnectionManager.commitJDBCConnection(con);
-			DBConnectionManager.closeStatement(st);
+			DBConnectionManager.closeStatement(st2);
 			DBConnectionManager.closeJDBCConnection(con);
 		}
 		return result;
@@ -98,7 +97,7 @@ public class EmployeeDao {
 			con.setAutoCommit(false);
 			st = con.createStatement();
 	
-			rs = st.executeQuery("select * from user") ;
+			rs = st.executeQuery("select * from employee") ;
 					
 			while (rs.next()){
 				EmployeeBean userBean = new EmployeeBean();
@@ -141,26 +140,24 @@ public EmployeeBean selectUser(EmployeeBean e){
 		
 		try{
 			con.setAutoCommit(false);
-			st = con.prepareStatement("select * from user where empemail=?");
+			//System.out.println(e.getEmail());
+			st = con.prepareStatement("select * from employee where empemail=?");
 			st.setString(1,e.getEmail());
-			pt	=con.prepareStatement("select password from passwords where empid=(select empid from employee where empemail=?)");
-			pt.setString(1,e.getEmail());
+			
 			rs = st.executeQuery() ;
 					
 			while (rs.next()){
 				
 				user.setName(rs.getString("empname"));
+				System.out.println(rs.getString("empname"));
 				user.setPhone(rs.getString("empphone"));
 				user.setMgr(Boolean.parseBoolean(rs.getString("mgr")));
-				
+				user.setPassword(rs.getString("password"));
 				user.setEmail(rs.getString("empemail"));
 				user.setDept(rs.getString("dept"));		
 								
 			}
-			rs=pt.executeQuery();
-			while(rs.next()){
-				user.setPassword(rs.getString("password"));
-			}
+			
 									
 		}catch (SQLException ex){
 			
@@ -184,20 +181,24 @@ public EmployeeBean selectUser(EmployeeBean e){
 		Connection con = DBConnectionManager.getSimpleConnection();		
 		PreparedStatement st = null;
 		
+		int n;
 		try {
 			con.setAutoCommit(false);
 			
-			st = con.prepareStatement("insert into employee(empname,empemail,empphone,dept) values(?,?,?,?)");
+			st = con.prepareStatement("insert into employee(empname,empemail,empphone,dept,password) values(?,?,?,?,?)");
 			st.setString(1, e.getName());
 			st.setString(2,e.getEmail());
 			st.setString(3,e.getPhone());
 			st.setString(4,e.getDept());
-			int n=st.executeUpdate();
+			st.setString(5,e.getPassword());
+			n=st.executeUpdate();
 			
-			return n;
+			
+			
 			
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
+			n=0;
 			DBConnectionManager.rollbackJDBCConnection(con);
 		}
 		finally{
@@ -208,7 +209,7 @@ public EmployeeBean selectUser(EmployeeBean e){
 		
 		
 		
-		return 0;
+		return n;
 	}
 	
 	public int updateUser(EmployeeBean e){
@@ -240,8 +241,8 @@ public EmployeeBean selectUser(EmployeeBean e){
 		PreparedStatement st = null;
 		int n;
 		try {
-			st=con.prepareStatement("update passwords set password = ? where empid=(select empid from employee where empemail=?)");
-			st.setString(1,e.getName());
+			st=con.prepareStatement("update employee set password = ? where empemail=?");
+			st.setString(1,e.getPassword());
 			st.setString(2,e.getEmail());
 			 n=st.executeUpdate();
 			

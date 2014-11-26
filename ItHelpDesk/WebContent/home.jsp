@@ -23,7 +23,7 @@
 			<h1>Login Account</h1>
 
 
-			<form name="myForm" method="post" action="controller.do">
+			<form name="myForm" method="get" action="controller.do">
 				<input type="hidden" name="form_action" value="login" />
 				<table>
 					<tr>
@@ -35,19 +35,7 @@
 						<td>Password</td>
 						<td><input type="password" name="password" id="in"></td>
 					</tr>
-					<tr>
-						<td><input type="radio" name="As" value="Admin">Admin</td>
-						<td><input type="radio" name="As" value="IT Team">IT
-							Team</td>
-					</tr>
-					<tr>
-						<td><input type="radio" name="As" value="Project Manger">Project
-							Manger</td>
-
-						<td><input type="radio" name="As" value="Project Team Member">Project
-							Team Member</td>
-
-					</tr>
+					
 					<tr>
 						<td colspan="2" align="center"><input type="Submit"
 							value="Login"></td>
