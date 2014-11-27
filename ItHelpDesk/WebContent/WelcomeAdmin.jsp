@@ -32,7 +32,12 @@
 		 
 		<center>
 			<a href="AddEmployee.jsp">Add Employee</a><br> 
-			<a href="ViewAllEmployee.jsp"> View Employee Hierarchy</a><br> 
+			
+			<a href="ViewAllEmployee.jsp"> View Employee Hierarchy</a><br>
+			<form name="myForm1" action="controller.do">
+				<input type=hidden name="form_action" value="user">
+				<input type=hidden name="action" value="viewAll">
+			</form> 
 			<a href="AssignManager.jsp">Assign Manager</a><br> 
 			<a href="" onClick="">Logout</a>
 		</center>

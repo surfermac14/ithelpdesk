@@ -19,10 +19,10 @@ public class DBConnectionManager {
 	}
 	public static Connection getSimpleConnection(){
 		Connection con = null;
-		String dbUrl = "jdbc:mysql://localhost:3307/ithelp";
+		String dbUrl = "jdbc:mysql://localhost:3306/ithelp";
 		 try{
 		        Class.forName("com.mysql.jdbc.Driver");
-		        con = DriverManager.getConnection (dbUrl, "root", "password");
+		        con = DriverManager.getConnection (dbUrl, "root", "root");
 		        }catch(Exception ex){
 		        	
 		        }

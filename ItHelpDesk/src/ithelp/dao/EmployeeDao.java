@@ -114,6 +114,7 @@ public class EmployeeDao {
 				userBean.setPassword(rs.getString("password"));
 				userBean.setEmail(rs.getString("empemail"));
 				userBean.setDept(rs.getString("dept"));		
+				userBean.setEmpid(Integer.parseInt(rs.getString("empid")));
 				users.add(userBean);					
 			}
 									
@@ -191,6 +192,7 @@ public EmployeeBean selectUser(EmployeeBean e){
 		String output="failure";
 		try {
 			st=con.prepareStatement("update employee set empname =?,empphone=?,dept=?,pass=?,mgr=? where empemail=?");
+			System.out.println(e.getDept());
 			st.setString(1,e.getName());
 			st.setString(2,e.getPhone());
 			st.setString(3, e.getDept());
@@ -198,7 +200,8 @@ public EmployeeBean selectUser(EmployeeBean e){
 			st.setBoolean(5,e.isMgr());
 			st.setString(6, e.getEmail());
 			
-			 st.executeUpdate();
+			 int n=st.executeUpdate();
+			 
 			 output="success";
 			
 		} catch (SQLException e1) {

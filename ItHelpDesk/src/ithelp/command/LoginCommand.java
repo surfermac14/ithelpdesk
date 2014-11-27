@@ -43,6 +43,7 @@ public class LoginCommand implements Command {
 			session.setAttribute("userBean", userBean);
 			
 			
+			
 
 			if(userBean.getDept().equals("admin")){
 				ServletContext context = request.getSession().getServletContext();
