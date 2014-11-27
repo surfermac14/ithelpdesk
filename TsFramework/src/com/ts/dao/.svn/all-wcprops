@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/TS-Framework/!svn/ver/5/TSFramework/src/com/ts/dao
+END
+UserDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/TS-Framework/!svn/ver/4/TSFramework/src/com/ts/dao/UserDAO.java
+END
+DBConnectionManager.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/TS-Framework/!svn/ver/5/TSFramework/src/com/ts/dao/DBConnectionManager.java
+END
