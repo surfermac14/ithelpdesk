@@ -86,7 +86,7 @@ public class EmployeeDao {
 		String result = null;
 		Connection con = DBConnectionManager.getSimpleConnection();		
 		PreparedStatement st2 = null;
-		System.out.println(email);
+		
 					
 		try{
 			con.setAutoCommit(false);
@@ -163,7 +163,7 @@ public class EmployeeDao {
 		
 	}
 	
-public EmployeeBean selectUser(EmployeeBean e){
+public EmployeeBean selectUserByMail(EmployeeBean e){
 		
 		EmployeeBean user = new EmployeeBean();
 		
@@ -176,7 +176,7 @@ public EmployeeBean selectUser(EmployeeBean e){
 		
 		try{
 			con.setAutoCommit(false);
-			//System.out.println(e.getEmail());
+		
 			st = con.prepareStatement("select * from employee where empemail=?");
 			st.setString(1,e.getEmail());
 			
@@ -185,7 +185,7 @@ public EmployeeBean selectUser(EmployeeBean e){
 			while (rs.next()){
 				
 				user.setName(rs.getString("empname"));
-				System.out.println(rs.getString("empname"));
+				user.setEmpid(rs.getInt("empid"));
 				user.setPhone(rs.getString("empphone"));
 				user.setMgr(Boolean.parseBoolean(rs.getString("mgr")));
 				user.setPassword(rs.getString("password"));
@@ -211,6 +211,55 @@ public EmployeeBean selectUser(EmployeeBean e){
 		return user;
 		
 	}
+
+public EmployeeBean selectUserById(EmployeeBean e){
+	
+	EmployeeBean user = new EmployeeBean();
+	
+	//Create a Database Connection
+	Connection con = DBConnectionManager.getSimpleConnection();		
+	PreparedStatement st = null;
+	ResultSet rs = null;
+	
+
+	
+	try{
+		con.setAutoCommit(false);
+		
+		st = con.prepareStatement("select * from employee where empeid=?");
+		st.setInt(1,e.getEmpid());
+		
+		rs = st.executeQuery() ;
+				
+		while (rs.next()){
+			
+			user.setName(rs.getString("empname"));
+			user.setEmpid(rs.getInt("empid"));
+			user.setPhone(rs.getString("empphone"));
+			user.setMgr(Boolean.parseBoolean(rs.getString("mgr")));
+			user.setPassword(rs.getString("password"));
+			user.setEmail(rs.getString("empemail"));
+			user.setDept(rs.getString("dept"));		
+							
+		}
+		
+								
+	}catch (SQLException ex){
+		
+		DBConnectionManager.rollbackJDBCConnection(con);
+		//log.error(ex);
+	}
+	finally
+	{
+		DBConnectionManager.commitJDBCConnection(con);
+		DBConnectionManager.closeStatement(st);
+		DBConnectionManager.closeJDBCConnection(con);
+	}
+	
+			
+	return user;
+	
+}
 	
 	public String insertUser(EmployeeBean e){
 		Connection con = DBConnectionManager.getSimpleConnection();		
@@ -250,14 +299,15 @@ public EmployeeBean selectUser(EmployeeBean e){
 		PreparedStatement st = null;
 		String output="failure";
 		try {
-			st=con.prepareStatement("update employee set empname =?,empphone=?,dept=?,password=?,mgr=? where empemail=?");
+			st=con.prepareStatement("update employee set empname =?,empemail=?,empphone=?,password=? where empid=?");
 			
 			st.setString(1,e.getName());
-			st.setString(2,e.getPhone());
-			st.setString(3, e.getDept());
+			st.setString(2, e.getEmail());
+			st.setString(3,e.getPhone());
 			st.setString(4,e.getPassword());
-			st.setBoolean(5,e.isMgr());
-			st.setString(6, e.getEmail());
+			st.setInt(5,e.getEmpid());
+			
+			
 			
 			int n=st.executeUpdate();
 			

@@ -64,7 +64,10 @@
                      	<!-- Select the user to delete. Check UserCommand.java deleteUser function -->
                          <input type="radio" name="mail" value="<%=e.getEmail()%>"  />                            
                      </td>
-                     
+                     <td> 
+                     	<!-- Select the user to delete. Check UserCommand.java deleteUser function -->
+                         <input type="radio" name="mail" value="<%=e.getEmail()%>"  />                            
+                     </td>
                      
                      </tr>
 				<%
@@ -72,13 +75,7 @@
 				%>	
 			</table>
 			<input type="Submit" name="enter_button" value="Delete" />	
-			<input type="button" name="manager" value="Assign Manager" onclick="assignManager"/>
-			<script type="text/javascript">
-				function assignManager(){
-				document.myForm1.action.value="mgr";
-				document.myForm1.submit();
-				}
-			</script>
+			
 		</form>	
 		</div>
 	</div>

@@ -78,7 +78,7 @@ public class EmployeeCommand implements Command{
 		if ("success".equalsIgnoreCase(this.check(userBean))){        
 
 			EmployeeDao  e = new EmployeeDao();
-			userBean = e.selectUser(userBean);
+			userBean = e.selectUserByMail(userBean);
 			HttpSession session = request.getSession();
 			session.setAttribute("userBean", userBean);
 			
@@ -89,7 +89,7 @@ public class EmployeeCommand implements Command{
 				ServletContext context = request.getSession().getServletContext();
 				context.getRequestDispatcher("/WelcomeAdmin.jsp").forward(request, response);
 			}
-			else if(userBean.isMgr()==true){
+			else if(userBean.isMgr()==false){
 				ServletContext context = request.getSession().getServletContext();
 				context.getRequestDispatcher("/WelcomeManager.jsp").forward(request, response);
 			}
@@ -120,6 +120,10 @@ public class EmployeeCommand implements Command{
 		userBean.setPassword( request.getParameter("pass"));
 		userBean.setPhone(request.getParameter("phno"));
 		userBean.setDept(request.getParameter("dept"));
+		if(request.getParameter("id")==null)
+			userBean.setEmpid(0);
+		else
+		userBean.setEmpid(Integer.parseInt(request.getParameter("id")));
 		//userBean.setMgr(request.getParameter("mgr"));
 		
 	}
@@ -137,18 +141,22 @@ public class EmployeeCommand implements Command{
 	}
 
 	private void updateUser(HttpServletRequest request,
-			HttpServletResponse response) {
-
+			HttpServletResponse response) throws ServletException, IOException {
+		
+		EmployeeDao e = new EmployeeDao();
 		EmployeeBean userBean = new EmployeeBean();
 		mapToUserBean (request, userBean);
-		EmployeeDao e = new EmployeeDao();
+		
 		
 		if("success".equals(e.updateUser(userBean))){
-			System.out.println("bisket");
+			
 			request.getSession().setAttribute("stats", "inserted");
+			ServletContext context = request.getSession().getServletContext();
+			context.getRequestDispatcher("/WelcomeManager.jsp").forward(request, response);
 		}
 		else{
-			System.out.println(e.updateUser(userBean));
+			ServletContext context = request.getSession().getServletContext();
+			context.getRequestDispatcher("/WelcomeManager.jsp").forward(request, response);
 		}
 		
 	}

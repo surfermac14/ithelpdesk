@@ -15,8 +15,8 @@
 
 		</div>
 		<div id="txt1">
-			<a href="IssueTickets.html"><center>Raise Tickets</center></a> 
-			<a href="UpdateEmployee.html"><center>Manage Profile</center></a>
+			<a href="IssueTickets.jsp"><center>Raise Tickets</center></a> 
+			<a href="UpdateEmployee.jsp>"><center>Manage Profile</center></a>
 		</div>
 	</div>
 </body>

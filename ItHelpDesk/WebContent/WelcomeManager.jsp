@@ -17,9 +17,11 @@
 		<h1>
 			<i><center>WELCOME MANAGER</center></i>
 		</h1>
-		<div>
-			<a href="issueTickets.html"><center>Manage Tickets</center></a>
-		</div>
+		
+			<center><a href="IssueTickets.jsp">Raise Tickets</a></center>
+			<center><a href="UpdateEmployee.jsp">Update Profile</a></center>
+			
+			
 	</div>
 </body>
 </html>
