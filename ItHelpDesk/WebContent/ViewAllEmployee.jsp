@@ -25,6 +25,9 @@
 
 		</div>
 		<div id="emp">
+		<form action="controller.do" method="post" name="myForm1">
+			<input type="hidden" name="form_action" value="user" /> 
+	        <input type="hidden" name="action" value="delete" />
 			<table border="1" style="width: 75%">
 				<tr>
 					<th>Employee ID</th>
@@ -32,6 +35,8 @@
 					<th>Employee Email</th>
 					<th>Employee Phone</th>
 					<th>Employee Department</th>
+					<th>Select2del</th>
+					<th>Assign Manager</th>
 				</tr>
 				 <%
                
@@ -57,14 +62,24 @@
                      </td>
                      <td> 
                      	<!-- Select the user to delete. Check UserCommand.java deleteUser function -->
-                         <input type="radio" name="notify" value="<%=e.getEmail()%>"  />                            
+                         <input type="radio" name="mail" value="<%=e.getEmail()%>"  />                            
                      </td>
+                     
                      
                      </tr>
 				<%
 				  }
 				%>	
 			</table>
+			<input type="Submit" name="enter_button" value="Delete" />	
+			<input type="button" name="manager" value="Assign Manager" onclick="assignManager"/>
+			<script type="text/javascript">
+				function assignManager(){
+				document.myForm1.action.value="mgr";
+				document.myForm1.submit();
+				}
+			</script>
+		</form>	
 		</div>
 	</div>
 </body>

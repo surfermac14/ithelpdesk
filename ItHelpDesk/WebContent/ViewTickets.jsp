@@ -29,7 +29,9 @@
 				<th>End date</th>
 			</tr>
 			
-			<jsp:useBean id="ticket" class="ithelp.beans.TicketBean" />
+			<%
+				
+			 %>
 			
 		</table>
 	</div>

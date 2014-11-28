@@ -29,8 +29,9 @@ public class Controller extends HttpServlet{
 	public void init(ServletConfig config) throws ServletException{
         super.init();	            	        
         
-        this.commands.put("login", new LoginCommand());
-        this.commands.put("insertemp", new InsEmpCommand());
+        
+        this.commands.put("user", new EmployeeCommand());
+        
     }
 	
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)

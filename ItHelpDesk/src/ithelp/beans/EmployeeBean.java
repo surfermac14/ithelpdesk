@@ -48,10 +48,10 @@ public class EmployeeBean {
 	public boolean isMgr() {
 		return mgr;
 	}
-	public void setMgr(boolean mgr) {
-		this.mgr = mgr;
-	}
 	
+	public boolean setMgr(boolean mgr){
+		return mgr;
+	}
 	
 
 }

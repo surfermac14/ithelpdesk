@@ -24,16 +24,17 @@
 
 
 			<form name="myForm" method="get" action="controller.do">
-				<input type="hidden" name="form_action" value="login" />
+				<input type="hidden" name="form_action" value="user" />
+				<input type="hidden" name="action" value="check" />
 				<table>
 					<tr>
 						<td>UserName</td>
-						<td><input type="text" name="emailId" id="in"></td>
+						<td><input type="text" name="mail" id="in"></td>
 
 					</tr>
 					<tr>
 						<td>Password</td>
-						<td><input type="password" name="password" id="in"></td>
+						<td><input type="password" name="pass" id="in"></td>
 					</tr>
 					
 					<tr>

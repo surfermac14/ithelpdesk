@@ -16,18 +16,19 @@
 		</div>
 		
 		<% 
-			String  one=(String)session.getAttribute("stats");
+			/*String  one=(String)session.getAttribute("stats");
 			if(one==(null)){
 				one="";
 			}
 			
 			out.println(one);
-		
+		*/
 		%>
 		<div id="emp">
 			
 			<form method="post" action="controller.do">
-				<input type="hidden" name="form_action" value="insertemp">
+				<input type="hidden" name="form_action" value="user">
+				<input type="hidden" name="action" value="insert"> 
 				<table>
 					<tr>
 						<td>Emp name :</td>
@@ -51,7 +52,7 @@
 
 								<option value="admin">Admin</option>
 								<option value="IT">IT</option>
-								<option value="Project">Developement</option>
+								<option value="Project">Development</option>
 						</select></td>
 					</tr>
 					<tr>

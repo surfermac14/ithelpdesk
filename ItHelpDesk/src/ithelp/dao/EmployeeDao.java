@@ -10,16 +10,42 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 
-
-
-
-
-
 public class EmployeeDao {
 	
 	static final String SUCCESS = "success";
 	static final String FAILURE = "failure";
 	
+	
+	
+	public String setMgr(String email){
+		Connection con = DBConnectionManager.getSimpleConnection();		
+		PreparedStatement st = null;
+		String output="failure";
+		try {
+			st=con.prepareStatement("update employee set mgr =? where empemail=?");
+			
+			
+			st.setBoolean(1,true);
+			st.setString(2, email);
+			
+			int n=st.executeUpdate();
+			
+			if(n==0){ 
+			 output="success";
+			 return output;
+			}
+		} catch (SQLException e1) {
+			output="failure";
+			e1.printStackTrace();
+			DBConnectionManager.rollbackJDBCConnection(con);
+		}
+		finally{
+			DBConnectionManager.commitJDBCConnection(con);
+			DBConnectionManager.closeStatement(st);
+			DBConnectionManager.closeJDBCConnection(con);
+		}
+		return output;
+	}
 	
 	public String checkUser(EmployeeBean e)  {
 		String result=FAILURE;
@@ -41,6 +67,7 @@ public class EmployeeDao {
 		} catch (SQLException e1) {
 			
 			result = FAILURE;
+			e1.printStackTrace();
 			DBConnectionManager.rollbackJDBCConnection(con);
 		}
 		finally
@@ -59,12 +86,13 @@ public class EmployeeDao {
 		String result = null;
 		Connection con = DBConnectionManager.getSimpleConnection();		
 		PreparedStatement st2 = null;
+		System.out.println(email);
 					
 		try{
 			con.setAutoCommit(false);
 			
-			st2 = con.prepareStatement("delete from employee where email =?");
-			
+			st2 = con.prepareStatement("delete from employee where empemail =?");
+			st2.setString(1,email);
 	
 			
 			int row2 = st2.executeUpdate();
@@ -76,7 +104,7 @@ public class EmployeeDao {
 			}
 		}	
 		catch (SQLException ex){
-			
+			ex.printStackTrace();
 			DBConnectionManager.rollbackJDBCConnection(con);
 			result = FAILURE;
 			//log.error(ex);
@@ -119,7 +147,7 @@ public class EmployeeDao {
 			}
 									
 		}catch (SQLException ex){
-			
+			ex.printStackTrace();
 			DBConnectionManager.rollbackJDBCConnection(con);
 			//log.error(ex);
 		}
@@ -184,15 +212,13 @@ public EmployeeBean selectUser(EmployeeBean e){
 		
 	}
 	
-	
-	
-	public String updateUser(EmployeeBean e){
+	public String insertUser(EmployeeBean e){
 		Connection con = DBConnectionManager.getSimpleConnection();		
 		PreparedStatement st = null;
 		String output="failure";
 		try {
-			st=con.prepareStatement("update employee set empname =?,empphone=?,dept=?,pass=?,mgr=? where empemail=?");
-			System.out.println(e.getDept());
+			st=con.prepareStatement("insert into employee(empname,empphone,dept,password,mgr,empemail) values(?,?,?,?,?,?)");
+			
 			st.setString(1,e.getName());
 			st.setString(2,e.getPhone());
 			st.setString(3, e.getDept());
@@ -200,12 +226,48 @@ public EmployeeBean selectUser(EmployeeBean e){
 			st.setBoolean(5,e.isMgr());
 			st.setString(6, e.getEmail());
 			
-			 int n=st.executeUpdate();
-			 
-			 output="success";
+			int n=st.executeUpdate();
 			
+			if(n==0){ 
+			 output="success";
+			 return output;
+			}
 		} catch (SQLException e1) {
 			output="failure";
+			e1.printStackTrace();
+			DBConnectionManager.rollbackJDBCConnection(con);
+		}
+		finally{
+			DBConnectionManager.commitJDBCConnection(con);
+			DBConnectionManager.closeStatement(st);
+			DBConnectionManager.closeJDBCConnection(con);
+		}
+		return output;
+	}
+	
+	public String updateUser(EmployeeBean e){
+		Connection con = DBConnectionManager.getSimpleConnection();		
+		PreparedStatement st = null;
+		String output="failure";
+		try {
+			st=con.prepareStatement("update employee set empname =?,empphone=?,dept=?,password=?,mgr=? where empemail=?");
+			
+			st.setString(1,e.getName());
+			st.setString(2,e.getPhone());
+			st.setString(3, e.getDept());
+			st.setString(4,e.getPassword());
+			st.setBoolean(5,e.isMgr());
+			st.setString(6, e.getEmail());
+			
+			int n=st.executeUpdate();
+			
+			if(n==0){ 
+			 output="success";
+			 return output;
+			}
+		} catch (SQLException e1) {
+			output="failure";
+			e1.printStackTrace();
 			DBConnectionManager.rollbackJDBCConnection(con);
 		}
 		finally{
