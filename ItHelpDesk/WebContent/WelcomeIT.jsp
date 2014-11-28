@@ -17,7 +17,7 @@
 		<h1 align="center">Welcome To IT Team</h1>
 		<div>
 			<a href="IssueTickets.jsp"><center>
-					<h2>Manage Tickets</h2>
+					Update Tickets
 				</center></a>
 		</div>
 	</div>

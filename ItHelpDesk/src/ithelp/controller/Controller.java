@@ -1,7 +1,7 @@
 package ithelp.controller;
 
 import ithelp.command.EmployeeCommand;
-import ithelp.command.InsEmpCommand;
+import ithelp.command.TicketCommand;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -30,6 +30,7 @@ public class Controller extends HttpServlet{
         
         
         this.commands.put("user", new EmployeeCommand());
+        this.commands.put("tickets",new TicketCommand());
         
     }
 	
