@@ -4,6 +4,9 @@ import ithelp.beans.TicketBean;
 import ithelp.dao.TicketDao;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -28,8 +31,15 @@ public class TicketCommand implements Command{
 		
 	}
 	private void mapToTicket(HttpServletRequest request, TicketBean t) {
-		// TODO Auto-generated method stub
-		
+		SimpleDateFormat s = new SimpleDateFormat("dd-mm-yyyy");
+		t.setTicketType(request.getParameter("type"));
+		t.setPriority(request.getParameter("type"));
+		t.setIssue(request.getParameter("issue"));
+		try{
+		t.setStartDate(s.parse(request.getParameter("startdate")));
+		}catch(ParseException e){
+			e.printStackTrace();
+		}
 	}
 	
 	
