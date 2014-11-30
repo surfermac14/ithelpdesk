@@ -5,13 +5,23 @@ import java.util.Date;
 public class TicketBean {
 	
 	String ticketType;
-	String priority;
+	int priority;
 	int ticketId;
 	String issue;
+	int empid;
+	
 	String solution;
 	int assignTo;
 	Date startDate;
 	Date endDate;
+	
+	
+	public int getEmpid() {
+		return empid;
+	}
+	public void setEmpid(int empid) {
+		this.empid = empid;
+	}
 	public String getTicketType() {
 		return ticketType;
 	}
@@ -19,11 +29,11 @@ public class TicketBean {
 		this.ticketType = ticketType;
 	}
 	
-	public String getPriority() {
+	public int getPriority() {
 		return priority;
 	}
-	public void setPriority(String priority) {
-		this.priority = priority;
+	public void setPriority(int i) {
+		this.priority = i;
 	}
 	public int getTicketId() {
 		return ticketId;

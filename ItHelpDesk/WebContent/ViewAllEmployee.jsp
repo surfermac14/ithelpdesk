@@ -64,10 +64,7 @@
                      	<!-- Select the user to delete. Check UserCommand.java deleteUser function -->
                          <input type="radio" name="mail" value="<%=e.getEmail()%>"  />                            
                      </td>
-                     <td> 
-                     	<!-- Select the user to delete. Check UserCommand.java deleteUser function -->
-                         <input type="radio" name="mail" value="<%=e.getEmail()%>"  />                            
-                     </td>
+                    
                      
                      </tr>
 				<%
